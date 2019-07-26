@@ -2,6 +2,8 @@ import requests
 from requests.cookies import RequestsCookieJar
 import json
 
+'''获取当前用户的当前学分'''
+
 
 def get_score(cookies):
     try:

@@ -2,7 +2,7 @@ import re
 from pdlearn import mydriver
 import sys
 
-
+'''控制台输入钉钉账号密码'''
 def get_dd():
     while True:
         dname = input('请输入正确的学习强国帐号(钉钉手机号)：')
@@ -12,7 +12,7 @@ def get_dd():
             break
     return dname, pwd
 
-
+'''判断当前用户是否存在，不存在保存一条记录'''
 def dd_login_status(uname, has_dd=False):
     while True:
         if has_dd:
@@ -28,12 +28,12 @@ def dd_login_status(uname, has_dd=False):
             break
     return cookies
 
-
+'''保存钉钉账号'''
 def save_dingding(user_path, dname, pwd):
     with open(user_path, "w", encoding="utf8") as fp:
         fp.write(dname + "," + pwd)
 
-
+'''加载钉钉账号实现自动登陆'''
 def load_dingding(user_path):
     with open(user_path, "r", encoding="utf8") as fp:
         try:

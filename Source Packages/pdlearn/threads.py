@@ -4,6 +4,8 @@ from threading import Lock
 threadLock = Lock()
 threads = []
 
+'''开启线程'''
+
 
 class MyThread(Thread):
     def __init__(self, name, func, *args, lock=False):

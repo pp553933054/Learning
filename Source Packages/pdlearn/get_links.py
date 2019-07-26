@@ -1,7 +1,7 @@
 import requests
 import re
 
-
+'''获取文章的地址连接'''
 def get_article_links():
     try:
         article = requests.get(
@@ -20,7 +20,7 @@ def get_article_links():
         print("=" * 120)
         raise
 
-
+'''获取音像地址连接'''
 def get_video_links():
     try:
         video = requests.get(

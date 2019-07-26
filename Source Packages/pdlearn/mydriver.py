@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from pdlearn import user_agent
 import os
 
+'''浏览器头设置，根据不同的请求初始化对象'''
+
 
 class Mydriver:
 
@@ -51,6 +53,7 @@ class Mydriver:
             print("=" * 120)
             raise
 
+    '''扫描二维码登陆'''
 
     def login(self):
         print("正在打开二维码登陆界面,请稍后")
@@ -84,6 +87,8 @@ class Mydriver:
         except:
             print("扫描二维码超时")
 
+    '''通过钉钉实现登陆'''
+
     def dd_login(self, d_name, pwd):
         __login_status = False
         self.driver.get(
@@ -107,9 +112,13 @@ class Mydriver:
             __login_status = True
         return __login_status
 
+    '''获取cookie'''
+
     def get_cookies(self):
         cookies = self.driver.get_cookies()
         return cookies
+
+    '''设置cookies'''
 
     def set_cookies(self, cookies):
         for cookie in cookies:

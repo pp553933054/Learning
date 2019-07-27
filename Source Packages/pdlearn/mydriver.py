@@ -53,11 +53,13 @@ class Mydriver:
             print("=" * 120)
             raise
 
-    '''扫描二维码登陆'''
+    '''通过扫描二维码登陆'''
 
     def login(self):
         print("正在打开二维码登陆界面,请稍后")
         self.driver.get("https://pc.xuexi.cn/points/login.html")
+
+        '''将多余的模块删除掉只保留二维码'''
         try:
             remover = WebDriverWait(self.driver, 30, 0.2).until(
                 lambda driver: driver.find_element_by_class_name("redflagbox"))

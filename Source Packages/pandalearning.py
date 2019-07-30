@@ -12,13 +12,16 @@ from pdlearn import get_links
 
 def user_flag(dd_status, uname):
     if dd_status:
-        cookies = dingding.dd_login_status(uname, has_dd=True)
+        # cookies = dingding.dd_login_status(uname, has_dd=True)
+        pass
     else:
-        if (input("是否保存钉钉帐户密码，保存后可后免登陆学习(Y/N) ")) not in ["y", "Y"]:
+        # if (input("是否保存钉钉帐户密码，保存后可后免登陆学习(Y/N) ")) not in ["y", "Y"]:
+        if True:
             driver_login = mydriver.Mydriver(nohead=False)
             cookies = driver_login.login()
         else:
-            cookies = dingding.dd_login_status(uname)
+            # cookies = dingding.dd_login_status(uname)
+            pass
     a_log = user.get_a_log(uname)
     v_log = user.get_v_log(uname)
 
@@ -84,7 +87,7 @@ def article(cookies, a_log, each):
         while True:
             if each[3] < 6 and try_count < 10:
                 num_time = 60
-                driver_article.get_url(links[a_log-1])
+                driver_article.get_url(links[a_log - 1])
                 time.sleep(random.randint(5, 15))
                 remaining = (6 - each[3]) * 4 * num_time
                 for i in range(remaining):
@@ -143,7 +146,7 @@ def video(cookies, v_log, each):
         while True:
             if each[4] < 6 and try_count < 10:
                 num_time = 60
-                driver_video.get_url(links[v_log-1])
+                driver_video.get_url(links[v_log - 1])
                 time.sleep(random.randint(5, 15))
                 remaining = (6 - each[4]) * 3 * num_time
                 for i in range(remaining):
@@ -176,7 +179,9 @@ if __name__ == '__main__':
     info_shread = threads.MyThread("获取更新信息...", version.up_info)
     info_shread.start()
     #  1 创建用户标记，区分多个用户历史纪录
-    dd_status, uname = user.get_user()
+    # dd_status, uname = user.get_user()
+    dd_status = False
+    uname = ''
     cookies, a_log, v_log = user_flag(dd_status, uname)
     total, each = show_score(cookies)
 

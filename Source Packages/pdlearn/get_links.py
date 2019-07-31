@@ -2,7 +2,13 @@ import requests
 import re
 
 '''获取文章的地址连接'''
+
+
 def get_article_links():
+    """
+    获取文章的地址连接
+    :return: links数组
+    """
     try:
         article = requests.get(
             "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.decode(
@@ -20,8 +26,15 @@ def get_article_links():
         print("=" * 120)
         raise
 
+
 '''获取音像地址连接'''
+
+
 def get_video_links():
+    """
+    获取音像地址连接
+    :return: 返回links数组
+    """
     try:
         video = requests.get(
             "https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/datadb086044562a57b441c24f2af1c8e101.js").content.decode(

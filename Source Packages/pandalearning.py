@@ -56,6 +56,13 @@ def show_score(cookies):
 
 
 def article(cookies, a_log, each):
+    """
+    阅读文章
+    :param cookies: cookie
+    :param a_log: 阅读文章记录
+    :param each: 阅读文章数量
+    :return:
+    """
     if each[0] < 6 or each[3] < 8:
         driver_article = mydriver.Mydriver(nohead=nohead)
         driver_article.get_url("https://www.xuexi.cn/notFound.html")
@@ -115,6 +122,13 @@ def article(cookies, a_log, each):
 
 
 def video(cookies, v_log, each):
+    """
+    观看视频
+    :param cookies:cookie
+    :param v_log: 视频记录
+    :param each: 视频数量
+    :return:
+    """
     if each[1] < 6 or each[4] < 10:
         driver_video = mydriver.Mydriver(nohead=nohead)
         driver_video.get_url("https://www.xuexi.cn/notFound.html")

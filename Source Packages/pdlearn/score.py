@@ -6,6 +6,13 @@ import json
 
 
 def get_score(cookies):
+    """
+    获取每一项需要的学分
+    :param cookies:
+    :type cookies:
+    :return:
+    :rtype :
+    """
     try:
         jar = RequestsCookieJar()
         for cookie in cookies:

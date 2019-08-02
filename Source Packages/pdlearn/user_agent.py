@@ -5,6 +5,11 @@ import random
 
 # 返回一个随机的请求头 headers
 def getheaders():
+    """
+    获取一个随机的请求头
+    :return:
+    :rtype:
+    """
     # 各种PC端
     user_agent_list_2 = [
         # Opera

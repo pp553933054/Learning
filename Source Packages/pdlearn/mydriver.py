@@ -15,6 +15,13 @@ class Mydriver:
     """
 
     def __init__(self, noimg=True, nohead=True):
+        """
+        初始化driver
+        :param noimg:
+        :type noimg:
+        :param nohead:
+        :type nohead:
+        """
         try:
             self.options = Options()
             if os.path.exists("./chrome/chrome.exe"):  # win
@@ -59,6 +66,11 @@ class Mydriver:
     '''扫描二维码登陆'''
 
     def login(self):
+        """
+        通过扫描二维码登录
+        :return:
+        :rtype:
+        """
         print("正在打开二维码登陆界面,请稍后")
         self.driver.get("https://pc.xuexi.cn/points/login.html")
         try:
@@ -93,6 +105,15 @@ class Mydriver:
     '''通过钉钉实现登陆'''
 
     def dd_login(self, d_name, pwd):
+        """
+        通过钉钉账号  登录
+        :param d_name:
+        :type d_name:
+        :param pwd:
+        :type pwd:
+        :return:
+        :rtype:
+        """
         __login_status = False
         self.driver.get(
             "https://login.dingtalk.com/login/index.htm?"
@@ -118,19 +139,45 @@ class Mydriver:
     '''获取cookie'''
 
     def get_cookies(self):
+        """
+        获取cookie
+        :return:
+        :rtype:
+        """
         cookies = self.driver.get_cookies()
         return cookies
 
     '''设置cookies'''
 
     def set_cookies(self, cookies):
+        """
+        设置cookie
+        :param cookies:
+        :type cookies:
+        :return:
+        :rtype:
+        """
         for cookie in cookies:
             self.driver.add_cookie({k: cookie[k] for k in cookie.keys()})
 
     def get_url(self, url):
+        """
+        访问浏览器
+        :param url:
+        :type url:
+        :return:
+        :rtype:
+        """
         self.driver.get(url)
 
     def go_js(self, js):
+        """
+        浏览器执行js命令
+        :param js:
+        :type js:
+        :return:
+        :rtype:
+        """
         self.driver.execute_script(js)
 
     def quit(self):

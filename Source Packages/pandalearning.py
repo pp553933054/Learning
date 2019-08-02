@@ -11,6 +11,15 @@ from pdlearn import get_links
 
 
 def user_flag(dd_status, uname):
+    """
+    用户登录状态
+    :param dd_status:
+    :type dd_status:
+    :param uname:
+    :type uname:
+    :return:
+    :rtype:
+    """
     if dd_status:
         # cookies = dingding.dd_login_status(uname, has_dd=True)
         pass
@@ -49,6 +58,13 @@ def get_argv():
 
 
 def show_score(cookies):
+    """
+    获取当前学习积分
+    :param cookies:
+    :type cookies:
+    :return:
+    :rtype:
+    """
     total, each = score.get_score(cookies)
     print("当前学习总积分：" + str(total))
     print("阅读文章:{}/6,观看视频:{}/6,登陆:{}/1,文章时长:{}/6,视频时长:{}/6".format(*each))
@@ -122,6 +138,7 @@ def article(cookies, a_log, each):
 
 
 def video(cookies, v_log, each):
+
     """
     观看视频
     :param cookies:cookie

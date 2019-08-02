@@ -4,6 +4,11 @@ from sys import argv
 
 
 def get_user():
+    """
+    获取用户标识
+    :return:
+    :rtype:
+    """
     if len(argv) > 1:
         uname = argv[1]
     else:
@@ -17,6 +22,13 @@ def get_user():
 
 
 def check_uname(uname):
+    """
+    校验用户是否存在
+    :param uname:
+    :type uname:
+    :return:
+    :rtype:
+    """
     __check_status = False
     if os.path.exists("./user/{}".format(uname)):
         __check_status = True
@@ -24,6 +36,13 @@ def check_uname(uname):
 
 
 def check_dd(uname):
+    """
+    校验钉钉账号登陆状态
+    :param uname:
+    :type uname:
+    :return:
+    :rtype:
+    """
     __dd_status = False
     if os.path.exists("./user/{}/dingding".format(uname)):
         __dd_status = True
@@ -31,6 +50,13 @@ def check_dd(uname):
 
 
 def get_a_log(uname):
+    """
+    获取文章记录文件
+    :param uname:
+    :type uname:
+    :return:
+    :rtype:
+    """
     __a_log = 0
     if os.path.exists("./user/{}/a_log".format(uname)):
         with open("./user/{}/a_log".format(uname), "r", encoding="utf8") as fp:
@@ -42,6 +68,13 @@ def get_a_log(uname):
 
 
 def get_v_log(uname):
+    """
+    获取视频记录文件
+    :param uname:
+    :type uname:
+    :return:
+    :rtype:
+    """
     __v_log = 0
     if os.path.exists("./user/{}/v_log".format(uname)):
         with open("./user/{}/v_log".format(uname), "r", encoding="utf8") as fp:
@@ -53,6 +86,13 @@ def get_v_log(uname):
 
 
 def shutdown(stime):
+    """
+    关闭计算机
+    :param stime:
+    :type stime:
+    :return:
+    :rtype:
+    """
     if stime:
         stime = int(stime)
         os.system('shutdown -s -t {}'.format(stime))

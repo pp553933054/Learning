@@ -29,7 +29,7 @@ def read_input(timeout=5):
         temp=input('\n')
         if len(temp)!=0:
             return temp
-        line = sys.stdin.readline()
+        # line = sys.stdin.readline()
+        line=input()
         return line
     return username
-

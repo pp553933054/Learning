@@ -1,15 +1,21 @@
 import os
 from time import sleep
 from sys import argv
+from pdlearn import input_username
 
 
 def get_user():
-    if len(argv) > 1:
-        uname = argv[1]
-    else:
-        uname = input("输入用户标记名：")
+    # if len(argv) > 1:
+    #     uname = argv[1]
+    # else:
+    #     uname = input("输入用户标记名：")
+
+    uname = input_username.read_input()
+
     if check_uname(uname):
-        dd = check_dd(uname)
+        # dd = check_dd(uname)
+        dd = False
+        pass
     else:
         os.makedirs("./user/{}".format(uname))
         dd = False
@@ -57,7 +63,7 @@ def shutdown(stime):
         stime = int(stime)
         os.system('shutdown -s -t {}'.format(stime))
         for i in range(stime):
-            print("\r{}秒后关机".format(stime-i), end="")
+            print("\r{}秒后关机".format(stime - i), end="")
             sleep(1)
     else:
         print("无自动关机任务，已释放程序内存，10分钟后窗口将自动关闭")

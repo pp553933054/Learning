@@ -207,12 +207,10 @@ def video(cookies, v_log, each):
 if __name__ == '__main__':
     #  0 读取版本信息
     start_time = time.time()
+    #  1 创建用户标记，区分多个用户历史纪录
+    dd_status, uname = user.get_user()
     info_shread = threads.MyThread("获取更新信息...", version.up_info)
     info_shread.start()
-    #  1 创建用户标记，区分多个用户历史纪录
-    # dd_status, uname = user.get_user()
-    dd_status = False
-    uname = ''
     cookies, a_log, v_log = user_flag(dd_status, uname)
     total, each = show_score(cookies)
 

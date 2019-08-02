@@ -9,6 +9,7 @@ def get_dd():
     """
     通过控制台输入钉钉账号密码
     :return:
+
     """
     while True:
         dname = input('请输入正确的学习强国帐号(钉钉手机号)：')
@@ -23,6 +24,7 @@ def get_dd():
 
 
 def dd_login_status(uname, has_dd=False):
+
     """
     判断当前用户是否存在,不存在就保存一条新的记录
     :param uname: 标识记录名

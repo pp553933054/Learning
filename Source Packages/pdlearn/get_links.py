@@ -15,10 +15,10 @@ def get_article_links():
             "utf8")
         pattern = r"list\"\:(.+),\"count\"\:"
         links = []
-        list = eval(re.search(pattern, article).group(1))[:20000]
-        list.reverse()
-        for i in range(len(list)):
-            links.append(list[i]["static_page_url"])
+        path_list = eval(re.search(pattern, article).group(1))[:20000]
+        path_list.reverse()
+        for i in range(len(path_list)):
+            links.append(path_list[i]["static_page_url"])
         return links
     except:
         print("=" * 120)
@@ -37,8 +37,8 @@ def get_video_links():
     """
     try:
         video = requests.get(
-            "https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/datadb086044562a57b441c24f2af1c8e101.js").content.decode(
-            "utf8")
+            "https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/datadb086044562a57b441c24f2af1c8e101.js").content.\
+            decode("utf8")
         pattern = r'https://www.xuexi.cn/[^,"]*html'
         link = re.findall(pattern, video, re.I)
         link.reverse()

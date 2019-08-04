@@ -1,4 +1,4 @@
-'''
+"""
 ###get keyboard input and timeout =5
 
 import sys, time, msvcrt
@@ -25,9 +25,11 @@ def readInput( caption, default, timeout = 5):
 
 readInput("TEst1",10)
 
-'''
+"""
 
-import sys, time, msvcrt
+import msvcrt
+import sys
+import time
 
 
 def read_key_board_input(timeout=5):
@@ -42,11 +44,11 @@ def read_key_board_input(timeout=5):
     confirm_time = time.time()
     confirm_text = 0
     cancel_text = 0
-    sys.stdout.write("是否输入用户标识（y or n ,默认值为:n）并按回车键确认");
+    sys.stdout.write("是否输入用户标识（y or n ,默认值为:n）并按回车键确认")
     while True:
         if msvcrt.kbhit():
             char = msvcrt.getche()
-            temp = ord(char)
+            # temp = ord(char)
             if cancel_text == 0 and (ord(char) == 121 or ord(char) == 89):  # y or Y
                 confirm_text = ord(char)
                 confirm_time = time.time()
@@ -66,7 +68,8 @@ def read_key_board_input(timeout=5):
         # 输入n 或者N后未按回车超时执行
         if confirm_text == 0 and (time.time() - start_time > timeout):
             return False
-        ##输入y 或者Y后未按回车超时执行
+
+        # 输入y 或者Y后未按回车超时执行
         if cancel_text == 0 and confirm_text != 0 and (time.time() - confirm_time > timeout):
             return True
 

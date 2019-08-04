@@ -1,156 +1,120 @@
 #!/usr/bin/env python 
 # -*- coding: utf-8 -*- 
-# @Time : 2019-08-02 17:28 
+# @Time : 2019-08-02 16:45 
 # @Author : YXH
 # @Site :  
-# @File : send_email.py
+# @File : send_email.py 
 # @Software: PyCharm
 
-# coding:utf-8
+
+# 发送带有附件的邮件。
+
 
 import smtplib
-import time
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
+
 from email.mime.text import MIMEText
 
+from email.mime.image import MIMEImage
 
-def send_mail(sender, receivers, cc_mail, mail_pass, content, file, image):
-    """
-    发送邮件
-    :param sender: 发送人
-    :type sender: str
-    :param receivers: 收件人
-    :type receivers: list
-    :param cc_mail: 抄送人
-    :type cc_mail: list
-    :param mail_pass: 邮箱授权码
-    :type mail_pass: str
-    :param content:邮件正文
-    :type content:str
-    :param file:文本附件
-    :type file:str
-    :param image:图片
-    :type image:str
-    :return:
-    :rtype:
-    """
-    # 第三方 SMTP 服务,设置具体的服务器
+from email.mime.multipart import MIMEMultipart, MIMEBase
 
-    mail_host = "smtp.163.com"
+from email import encoders
 
-    # 正文内容   plain代表纯文本
-    # message = MIMEText(content, 'plain', 'utf-8')
+HOST = "smtp.qq.com"
 
-    # 构造一个MIMEMultipart对象代表邮件本身
-    message = MIMEMultipart()
+PORT = "465"
 
-    # 正文内容   plain代表纯文本,html代表支持html文本
-    message.attach(MIMEText(content, 'html', 'utf-8'))
-    # 发送人邮箱
-    message['From'] = sender
-    # 收件人邮箱
-    message['To'] = ','.join(receivers)  # 与真正的收件人的邮箱不是一回事
-    # 抄送人邮箱
-    message['Cc'] = ','.join(cc_mail)
-    # 邮件标题
-    subject = 'Python自动邮件-%s' % time.ctime()
-    message['Subject'] = subject
+SUBJECT = "测试邮件"
 
-    # 添加文件到附件
+FROM = "123456789@qq.com"
 
-    with open(file, 'rb') as f:
+TO = "123456789@qq.com"
 
-        # MIMEBase表示附件的对象
+# 1> 创建用于发送带有附件文件的邮件对象
 
-        mime = MIMEBase('text', 'txt', filename=file)
+# related: 邮件内容的格式，采用内嵌的形式进行展示。
 
-        # filename是显示附件名字
+message = MIMEMultipart('related')
 
-        mime.add_header('Content-Disposition', 'attachment', filename=file)
-
-        # 获取附件内容
-
-        mime.set_payload(f.read())
-
-        encoders.encode_base64(mime)
-
-        # 作为附件添加到邮件
-
-        message.attach(mime)
-
-    with open(image, 'rb') as f:
-
-        # 图片添加到附件
-
-        mime = MIMEBase('image', 'image', filename=image)
-
-        mime.add_header('Content-Disposition', 'attachment', filename=image)
-
-        mime.set_payload(f.read())
-
-        encoders.encode_base64(mime)
-
-        message.attach(mime)
-
-    with open(image, 'rb') as f:
-
-        # 图片添加到正文
-
-        msg_image = MIMEImage(f.read())
-
-        # 定义图片ID
-
-        msg_image.add_header('Content-ID', '<image1>')
-
-        message.attach(msg_image)
-
-    try:
-
-        smtp_obj = smtplib.SMTP_SSL(mail_host, 465)
-
-        smtp_obj.login(sender, mail_pass)
-        # message.as_string()
-        smtp_obj.sendmail(sender, receivers + cc_mail, str(message))
-
-        smtp_obj.quit()
-
-        print(u"邮件发送成功")
-
-    except smtplib.SMTPException as e:
-        print(e)
+# 向message对象中添加不同类型的邮件内容。
 
 
-if __name__ == "__main__":
-    # 用户名与发送方
-    this_sender = 'pp553933054@163.com'
-    # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
-    this_receivers = ['553933054@qq.com', '894537508@qq.com']
-    # 抄送人
-    this_cc_mail = ['553933054@qq.com']
+# 发送内容是html的邮件，邮件中含有图片。
 
-    # 口令,QQ邮箱是输入授权码，在qq邮箱设置 里用验证过的手机发送短信获得，不含空格
+# 参数2：指定邮件内容类型，默认是plain，表示没有任何格式的纯文本内容。
 
-    this_mail_pass = "123456789pp"
+message_html = MIMEText('<h1>含有图片的邮件：</h1><p>接下来就会展示这个图片了</p><img src="cid:images">', 'html', 'utf8')
 
-    this_content = '''获取到二维码，速度登录移动端学习强国进行扫描登陆
+# 2> 需要将message_html对象，添加至message中，等待被发送。
 
-            <h1>测试</h1>
+message.attach(message_html)
 
-            <h2 style="color:red">仅用于测试</h1>
 
-            <a href="http://www.runoob.com/python/python-email.html">菜鸟教程</a><br>
+def load_image(path, cid):
+    data = open(path, 'rb')
 
-            <p>图片演示：</p>
+    message_img = MIMEImage(data.read())
 
-            <p><img src="cid:image1"></p>
+    data.close()
 
-          '''
+    # 给图片绑定cid，将来根据这个cid的值，找到标签内部对应的img标签。
 
-    this_file = 'Fx1.txt'
+    message_img.add_header('Content-ID', cid)
 
-    this_image = 'phone.jpg'
+    # 返回MIMEImage的对象，将该对象放入message中
 
-    send_mail(this_sender, this_receivers, this_cc_mail, this_mail_pass, this_content, this_file, this_image)
+    return message_img
+
+
+# 向img标签中指定图片
+
+message.attach(load_image('scrapy_img.png', 'images'))
+
+# 文档附件、图片附件等。
+
+# 一般如果数据是二进制的数据格式，在指定第二个参数的时候，都使用base64，一种数据传输格式。
+
+message_docx = MIMEText(open('test.docx', 'rb').read(), 'base64', 'utf8')
+
+# message_docx['Content-Disposition'] = 'attachment;filename=test.docx'
+
+message_docx.add_header('content-disposition', 'attachment', filename='mytest.docx')
+
+message.attach(message_docx)
+
+message_docx1 = MIMEText(open('测试.docx', 'rb').read(), 'base64', 'utf8')
+
+# 如果文件名是中文的：
+
+# add_header()能够正常的显示中文（推荐）；
+
+# message_docx1['Content-Disposition']是无法正常显示中文的。
+
+
+# message_docx1['Content-Disposition'] = 'attachment;filename=测试.docx'
+
+message_docx1.add_header('content-disposition', 'attachment', filename='测试.docx')
+
+message.attach(message_docx1)
+
+message_image = MIMEText(open('scrapy_img.png', 'rb').read(), 'base64', 'utf8')
+
+# message_image['Content-Disposition'] = 'attachment;filename=test.png'
+
+message_image.add_header('content-disposition', 'attachment', filename='mytest.png')
+
+message.attach(message_image)
+
+message['From'] = FROM
+
+message['Subject'] = SUBJECT
+
+message['To'] = TO
+
+client = smtplib.SMTP_SSL()
+
+client.connect(HOST, PORT)
+
+print('result: ', client.login(FROM, '授权码（或密码，不推荐使用密码）'))
+
+print('发送结果：', client.sendmail(from_addr=FROM, to_addrs=[TO], msg=message.as_string()))

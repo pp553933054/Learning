@@ -5,7 +5,7 @@ from selenium.common import exceptions
 from selenium.webdriver.chrome.options import Options
 from pdlearn import user_agent
 import os
-
+import time
 '''浏览器头设置，根据不同的请求初始化对象'''
 
 
@@ -96,6 +96,14 @@ class Mydriver:
             self.driver.execute_script('arguments[0].remove()', remover)
             self.driver.execute_script('window.scrollTo(document.body.scrollWidth/2 - 200 , 0)')
         try:
+            WebDriverWait(self.driver, 30, 0.2).until(lambda driver: driver.find_element_by_id("ddlogin-iframe"))
+        except exceptions.TimeoutException:
+            print("当前网络缓慢")
+        else:
+            time.sleep(5)
+            self.driver.get_screenshot_as_file("login.png")
+        try:
+            temp = self.get_cookies()
             WebDriverWait(self.driver, 270).until(EC.title_is(u"我的学习"))
             cookies = self.get_cookies()
             return cookies

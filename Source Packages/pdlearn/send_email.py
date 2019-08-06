@@ -18,25 +18,42 @@ from email.mime.text import MIMEText
 
 
 def send_mail(sender, receivers, cc_mail, mail_pass, content, file, image):
+    """
+    发送邮件
+    :param sender: 发送人
+    :type sender:str
+    :param receivers:收件人
+    :type receivers:list
+    :param cc_mail:抄送人
+    :type cc_mail:list
+    :param mail_pass:邮箱密钥
+    :type mail_pass:str
+    :param content:邮件正文
+    :type content:str
+    :param file:附件
+    :type file:str
+    :param image:附件
+    :type image:str
+    :return:
+    :rtype:
+    """
     # 第三方 SMTP 服务
 
     mail_host = "smtp.qq.com"  # 设置服务器
 
     # message = MIMEText(content, 'plain', 'utf-8')#正文内容   plain代表纯文本
 
-    # 构造一个MIMEMultipart对象代表邮件本身
-
-    message = MIMEMultipart()
+    message = MIMEMultipart()  # 构造一个MIMEMultipart对象代表邮件本身
 
     message.attach(MIMEText(content, 'html', 'utf-8'))  # 正文内容   plain代表纯文本,html代表支持html文本
 
-    message['From'] = sender
+    message['From'] = sender  # 发送人
 
     message['To'] = ','.join(receivers)  # 与真正的收件人的邮箱不是一回事
 
-    message['Cc'] = ','.join(cc_mail)
+    message['Cc'] = ','.join(cc_mail)  # 抄送人
 
-    subject = 'Python自动邮件-%s' % time.ctime()
+    subject = 'Python自动邮件-%s' % time.ctime()  # 时间戳
 
     message['Subject'] = subject  # 邮件标题
 

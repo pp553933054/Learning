@@ -24,7 +24,7 @@ def get_score(cookies):
         each = json.loads(each, encoding="utf8")["data"]["dayScoreDtos"]
         each = [int(i["currentScore"]) for i in each if i["ruleId"] in [1, 2, 9, 1002, 1003]]
         return total, each
-    except:
+    except Exception:
         print("=" * 120)
         print("get_video_links获取失败")
         print("=" * 120)

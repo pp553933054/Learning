@@ -32,7 +32,7 @@ import sys
 import time
 
 
-def read_key_board_input(timeout=5):
+def read_key_board_input(timeout: int = 5.0):
     """
     默认值返回False
     :param timeout:设置超时

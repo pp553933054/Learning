@@ -1,4 +1,5 @@
 import requests
+from urllib import error
 
 
 def up_info():
@@ -26,7 +27,7 @@ def up_info():
                 print(i)
         print("=" * 120)
         print("更新显示不会打断之前输入等操作，请继续......（若已输入用户标记直接enter）")
-    except:
+    except error.URLError:
         print("版本信息网络错误")
 
 

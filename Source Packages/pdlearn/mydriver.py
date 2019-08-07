@@ -14,7 +14,7 @@ class Mydriver:
     :keyword
     """
 
-    def __init__(self, no_img=True, no_head=True):
+    def __init__(self, no_img=True, no_head=False):
         """
         初始化driver
         :param no_img:

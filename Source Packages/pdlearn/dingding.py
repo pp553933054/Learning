@@ -33,7 +33,7 @@ def dd_login_status(username, has_dd=False):
             print("读取用户信息成功")
         else:
             dd_name, pwd = get_dd()
-        driver_login = mydriver.Mydriver(noimg=False)
+        driver_login = mydriver.Mydriver(no_img=False)
         login_status = driver_login.dd_login(dd_name, pwd)
         if login_status:
             save_dingding("./user/{}/dingding".format(username), dd_name, pwd)

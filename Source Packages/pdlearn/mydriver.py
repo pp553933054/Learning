@@ -14,13 +14,13 @@ class Mydriver:
     :keyword
     """
 
-    def __init__(self, no_img=True, no_head=True):
+    def __init__(self, no_img=True, nohead=True):
         """
         初始化driver
         :param no_img:
         :type no_img:
-        :param no_head:
-        :type no_head:
+        :param nohead:
+        :type nohead:
         """
         try:
             self.options = Options()
@@ -30,7 +30,7 @@ class Mydriver:
                 self.options.binary_location = "/opt/google/chrome/chrome"
             if no_img:
                 self.options.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
-            if no_head:
+            if nohead:
                 self.options.add_argument('--headless')
                 self.options.add_argument('--disable-extensions')
                 self.options.add_argument('--disable-gpu')

@@ -14,13 +14,13 @@ class Mydriver:
     :keyword
     """
 
-    def __init__(self, no_img=True, no_head=True):
+    def __init__(self, noimg=True, nohead=True):
         """
         初始化driver
-        :param no_img:
-        :type no_img:
-        :param no_head:
-        :type no_head:
+        :param noimg:
+        :type noimg:
+        :param nohead:
+        :type nohead:
         """
         try:
             self.options = Options()
@@ -28,9 +28,9 @@ class Mydriver:
                 self.options.binary_location = "./chrome/chrome.exe"
             elif os.path.exists("/opt/google/chrome/chrome"):  # linux
                 self.options.binary_location = "/opt/google/chrome/chrome"
-            if no_img:
+            if noimg:
                 self.options.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
-            if no_head:
+            if nohead:
                 self.options.add_argument('--headless')
                 self.options.add_argument('--disable-extensions')
                 self.options.add_argument('--disable-gpu')
@@ -57,7 +57,7 @@ class Mydriver:
                                                     chrome_options=self.options)
             else:
                 self.driver = self.webdriver.Chrome(chrome_options=self.options)
-        except Exception:
+        except:
             print("=" * 120)
             print("Mydriver初始化失败")
             print("=" * 120)
@@ -73,6 +73,7 @@ class Mydriver:
         """
         print("正在打开二维码登陆界面,请稍后")
         self.driver.get("https://pc.xuexi.cn/points/login.html")
+        temp=os.path
         try:
             remover = WebDriverWait(self.driver, 30, 0.2).until(
                 lambda driver: driver.find_element_by_class_name("redflagbox"))
@@ -103,11 +104,11 @@ class Mydriver:
             time.sleep(5)
             self.driver.get_screenshot_as_file("login.png")
         try:
-            # temp = self.get_cookies()
+            temp = self.get_cookies()
             WebDriverWait(self.driver, 270).until(EC.title_is(u"我的学习"))
             cookies = self.get_cookies()
             return cookies
-        except TimeoutError:
+        except:
             print("扫描二维码超时")
 
     '''通过钉钉实现登陆'''
@@ -140,7 +141,7 @@ class Mydriver:
             print(self.driver.find_element_by_class_name("modal").find_elements_by_tag_name("div")[0].text)
             self.driver.quit()
             __login_status = False
-        except exceptions.TimeoutException:
+        except:
             __login_status = True
         return __login_status
 

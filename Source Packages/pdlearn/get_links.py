@@ -1,8 +1,9 @@
 import requests
 import re
 
+'''获取文章的地址连接'''
 
-# 获取文章的地址连接
+
 def get_article_links():
     """
     获取文章的地址连接
@@ -10,8 +11,8 @@ def get_article_links():
     """
     try:
         article = requests.get(
-            "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.\
-            decode("utf8")
+            "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.decode(
+            "utf8")
         pattern = r"list\"\:(.+),\"count\"\:"
         links = []
         path_list = eval(re.search(pattern, article).group(1))[:20000]
@@ -19,14 +20,15 @@ def get_article_links():
         for i in range(len(path_list)):
             links.append(path_list[i]["static_page_url"])
         return links
-    except Exception:
+    except:
         print("=" * 120)
         print("get_article_links获取失败")
         print("=" * 120)
         raise
 
 
-# 获取音像地址连接
+'''获取音像地址连接'''
+
 
 def get_video_links():
     """
@@ -41,7 +43,7 @@ def get_video_links():
         link = re.findall(pattern, video, re.I)
         link.reverse()
         return link
-    except Exception:
+    except:
         print("=" * 120)
         print("get_video_links获取失败")
         print("=" * 120)

@@ -3,50 +3,49 @@ from sys import argv
 import random
 from pdlearn import version
 from pdlearn import user
-# from pdlearn import dingding
+from pdlearn import dingding
 from pdlearn import mydriver
 from pdlearn import score
 from pdlearn import threads
 from pdlearn import get_links
 
 
-def user_flag(dd_status, username):
+def user_flag(dd_status, uname):
     """
     用户登录状态
-    :param username:
-    :type username:
     :param dd_status:
     :type dd_status:
+    :param uname:
+    :type uname:
     :return:
     :rtype:
     """
-    cookies = ''
     if dd_status:
         # cookies = dingding.dd_login_status(uname, has_dd=True)
         pass
     else:
         # if (input("是否保存钉钉帐户密码，保存后可后免登陆学习(Y/N) ")) not in ["y", "Y"]:
         if True:
-            driver_login = mydriver.Mydriver(no_head=False)
+            driver_login = mydriver.Mydriver(nohead=False)
             cookies = driver_login.login()
-        # else:
-        #     cookies = dingding.dd_login_status(uname)
-        #     pass
-    a_log = user.get_a_log(username)
-    v_log = user.get_v_log(username)
+        else:
+            # cookies = dingding.dd_login_status(uname)
+            pass
+    a_log = user.get_a_log(uname)
+    v_log = user.get_v_log(uname)
 
     return cookies, a_log, v_log
 
 
 def get_argv():
-    no_head = True
+    nohead = True
     lock = False
     stime = False
     if len(argv) > 2:
         if argv[2] == "hidden":
-            no_head = True
+            nohead = True
         elif argv[2] == "show":
-            no_head = False
+            nohead = False
     if len(argv) > 3:
         if argv[3] == "single":
             lock = True
@@ -55,7 +54,7 @@ def get_argv():
     if len(argv) > 4:
         if argv[4].isdigit():
             stime = argv[4]
-    return no_head, lock, stime
+    return nohead, lock, stime
 
 
 def show_score(cookies):
@@ -72,20 +71,16 @@ def show_score(cookies):
     return total, each
 
 
-def article(username, cookies, a_log, each, no_head=True):
+def article(cookies, a_log, each):
     """
     阅读文章
-    :param no_head:
-    :type no_head:
-    :param username: 用户标识
-    :type username: str
     :param cookies: cookie
     :param a_log: 阅读文章记录
     :param each: 阅读文章数量
     :return:
     """
     if each[0] < 6 or each[3] < 8:
-        driver_article = mydriver.Mydriver(no_head=no_head)
+        driver_article = mydriver.Mydriver(nohead=nohead)
         driver_article.get_url("https://www.xuexi.cn/notFound.html")
         driver_article.set_cookies(cookies)
         links = get_links.get_article_links()
@@ -108,7 +103,7 @@ def article(username, cookies, a_log, each, no_head=True):
                         break
                 a_log += a_num
             else:
-                with open("./user/{}/a_log".format(username), "w", encoding="utf8") as fp:
+                with open("./user/{}/a_log".format(uname), "w", encoding="utf8") as fp:
                     fp.write(str(a_log))
                 break
         try_count = 0
@@ -124,7 +119,7 @@ def article(username, cookies, a_log, each, no_head=True):
                             'window.scrollTo(0, document.body.scrollHeight/{}*{})'.format(remaining, i))
                     print("\r文章时长学习中，文章总时长剩余{}秒".format(remaining - i), end="")
                     time.sleep(1)
-                    if i % 120 == 0 and i != remaining:
+                    if i % (120) == 0 and i != remaining:
                         total, each = show_score(cookies)
                         if each[3] >= 6:
                             print("检测到文章时长分数已满,退出学习")
@@ -142,20 +137,17 @@ def article(username, cookies, a_log, each, no_head=True):
         print("文章之前学完了")
 
 
-def video(username, cookies, v_log, each, no_head=True):
+def video(cookies, v_log, each):
+
     """
     观看视频
-    :param no_head:
-    :type no_head:
-    :param username: 用户标识
-    :type username: str
     :param cookies:cookie
     :param v_log: 视频记录
     :param each: 视频数量
     :return:
     """
     if each[1] < 6 or each[4] < 10:
-        driver_video = mydriver.Mydriver(no_head=no_head)
+        driver_video = mydriver.Mydriver(nohead=nohead)
         driver_video.get_url("https://www.xuexi.cn/notFound.html")
         driver_video.set_cookies(cookies)
         links = get_links.get_video_links()
@@ -178,7 +170,7 @@ def video(username, cookies, v_log, each, no_head=True):
                         break
                 v_log += v_num
             else:
-                with open("./user/{}/v_log".format(username), "w", encoding="utf8") as fp:
+                with open("./user/{}/v_log".format(uname), "w", encoding="utf8") as fp:
                     fp.write(str(v_log))
                 break
         try_count = 0
@@ -194,7 +186,7 @@ def video(username, cookies, v_log, each, no_head=True):
                             'window.scrollTo(0, document.body.scrollHeight/{}*{})'.format(remaining, i))
                     print("\r视频学习中，视频总时长剩余{}秒".format(remaining - i), end="")
                     time.sleep(1)
-                    if i % 180 == 0 and i != remaining:
+                    if i % (180) == 0 and i != remaining:
                         total, each = show_score(cookies)
                         if each[4] >= 6:
                             print("检测到视频时长分数已满,退出学习")
@@ -216,19 +208,18 @@ if __name__ == '__main__':
     #  0 读取版本信息
     start_time = time.time()
     #  1 创建用户标记，区分多个用户历史纪录
-    self_dd_status, self_username = user.get_user()
-    info_thread = threads.MyThread("获取更新信息...", version.up_info)
-    info_thread.start()
-    self_cookies, self_a_log, self_v_log = user_flag(self_dd_status, self_username)
-    self_total, self_each = show_score(self_cookies)
+    dd_status, uname = user.get_user()
+    info_shread = threads.MyThread("获取更新信息...", version.up_info)
+    info_shread.start()
+    cookies, a_log, v_log = user_flag(dd_status, uname)
+    total, each = show_score(cookies)
 
-    self_no_head, self_lock, s_time = get_argv()
-    article_thread = threads.MyThread("文章学习", article, self_username, self_cookies, self_a_log, self_each,
-                                      lock=self_lock)
-    video_thread = threads.MyThread("视频学习", video, self_username, self_cookies, self_v_log, self_each, lock=self_lock)
+    nohead, lock, stime = get_argv()
+    article_thread = threads.MyThread("文章学习", article, cookies, a_log, each, lock=lock)
+    video_thread = threads.MyThread("视频学习", video, cookies, v_log, each, lock=lock)
     article_thread.start()
     video_thread.start()
     article_thread.join()
     video_thread.join()
     print("总计用时" + str(int(time.time() - start_time) / 60) + "分钟")
-    user.shutdown(s_time)
+    user.shutdown(stime)

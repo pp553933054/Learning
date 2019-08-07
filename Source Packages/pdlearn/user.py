@@ -1,5 +1,6 @@
 import os
 from time import sleep
+from sys import argv
 from pdlearn import input_username
 
 
@@ -11,7 +12,7 @@ def get_user():
 
     uname = input_username.read_input()
 
-    if check_username(uname):
+    if check_uname(uname):
         # dd = check_dd(uname)
         dd = False
         pass
@@ -21,16 +22,16 @@ def get_user():
     return dd, uname
 
 
-def check_username(username):
+def check_uname(uname):
     """
     校验用户是否存在
-    :param username:
-    :type username:
+    :param uname:
+    :type uname:
     :return:
     :rtype:
     """
     __check_status = False
-    if os.path.exists("./user/{}".format(username)):
+    if os.path.exists("./user/{}".format(uname)):
         __check_status = True
     return __check_status
 

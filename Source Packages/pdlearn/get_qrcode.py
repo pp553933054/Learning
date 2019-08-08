@@ -101,12 +101,13 @@ if __name__ == "__main__":
     print("         2、Scan a QRcode            ")
     print("=====================================")
     print("1、请输入编码信息：")
-    code_Data = input('>>:').strip()
-    code_Data="https://oapi.dingtalk.com/connect/qrcommit?showmenu=false&code=01879BDD-8239-4387-8D12-7A7D19849D2E&appid=dingoankubyrfkttorhpou&redirect_uri=https%3A%2F%2Fpc-api.xuexi.cn%2Fopen%2Fapi%2Fsns%2Fcallback"
+    # code_Data = input('>>:').strip()
+    code_Data = "https://oapi.dingtalk.com/connect/qrcommit?showmenu=false&code=01879BDD-8239-4387-8D12-7A7D19849D2E&appid" \
+                "=dingoankubyrfkttorhpou&redirect_uri=https%3A%2F%2Fpc-api.xuexi.cn%2Fopen%2Fapi%2Fsns%2Fcallback"
     print("正在编码：")
     # ==生成带中心图片的二维码
     make_qr_code_with_icon(code_Data, "phone.jpg", "qrcode.png")  # 内容，center图片，生成二维码图片
-    make_qr_code(code_Data,"qrcode_one.png")
+    make_qr_code(code_Data, "qrcode_one.png")
     print("图片已保存，名称为：qrcode.png")
     results = decode_qr_code("qrcode1.png")
     print("2、正在解码：")

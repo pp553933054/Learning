@@ -26,10 +26,10 @@ def read_input(timeout=5):
     username = ''
     if len(input_str) != 0 and (input_str[0] == 'y' or input_str[0] == 'Y'):
         print('\n请输入用户标识：')
-        temp=input('\n')
-        if len(temp)!=0:
+        temp = input('\n')
+        if len(temp) != 0:
             return temp
         # line = sys.stdin.readline()
-        line=input()
+        line = input()
         return line
     return username

@@ -36,7 +36,7 @@ def read_key_board_input(timeout=5):
     """
     默认值返回False
     :param timeout:设置超时
-    :type timeout:time
+    :type timeout:float
     :return:True or False
     :rtype:bool
     """

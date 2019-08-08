@@ -6,7 +6,6 @@
 # @File : test_properties.py
 from unittest import TestCase
 from pdlearn import read_config
-import os
 
 
 # @Software: PyCharm

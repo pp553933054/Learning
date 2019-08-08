@@ -1,12 +1,3 @@
-#!/usr/bin/env python 
-# -*- coding: utf-8 -*- 
-# @Time : 2019-08-07 14:15 
-# @Author : YXH
-# @Site :  
-# @File : read_config.py 
-# @Software: PyCharm
-
-# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time : 2019/8/2 19:46
 # @Author : YXH

@@ -4,8 +4,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
 from selenium.webdriver.chrome.options import Options
 from pdlearn import user_agent
+from pdlearn import send_email
 import os
 import time
+
 '''浏览器头设置，根据不同的请求初始化对象'''
 
 
@@ -102,7 +104,10 @@ class Mydriver:
         else:
             time.sleep(5)
             self.driver.get_screenshot_as_file("login.png")
+            # time.sleep(5)
         try:
+            # if os.path.exists("login.png"):
+            #     send_email.temp_send()
             # temp = self.get_cookies()
             WebDriverWait(self.driver, 270).until(EC.title_is(u"我的学习"))
             cookies = self.get_cookies()
@@ -190,3 +195,5 @@ class Mydriver:
 
     def quit(self):
         self.driver.quit()
+
+

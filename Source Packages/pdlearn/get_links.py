@@ -11,7 +11,8 @@ def get_article_links():
     """
     try:
         article = requests.get(
-            "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.decode(
+            "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.\
+            decode(
             "utf8")
         pattern = r"list\"\:(.+),\"count\"\:"
         links = []

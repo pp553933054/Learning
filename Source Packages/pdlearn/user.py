@@ -35,6 +35,20 @@ def check_uname(uname):
     return __check_status
 
 
+def check_picture(pic_name):
+    """
+    检测路径中是否含有二维码图片
+    :param pic_name: 图片名称
+    :type pic_name: str
+    :return: 检测状态
+    :rtype: bool
+    """
+    __check_status = False
+    if os.path.exists("./{}".format(pic_name)):
+        __check_status = True
+    return __check_status
+
+
 def check_dd(uname):
     """
     校验钉钉账号登陆状态

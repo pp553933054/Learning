@@ -3,11 +3,12 @@ from sys import argv
 import random
 from pdlearn import version
 from pdlearn import user
-from pdlearn import dingding
+# from pdlearn import dingding
 from pdlearn import mydriver
 from pdlearn import score
 from pdlearn import threads
 from pdlearn import get_links
+from pdlearn import delete_folder
 
 
 def user_flag(dd_status, uname):
@@ -27,7 +28,12 @@ def user_flag(dd_status, uname):
         # if (input("是否保存钉钉帐户密码，保存后可后免登陆学习(Y/N) ")) not in ["y", "Y"]:
         if True:
             driver_login = mydriver.Mydriver(nohead=False)
+            # 删除登录二维码
+            # path = '../login.png'
+            # if delete_folder.delete_file(path):
             cookies = driver_login.login()
+            # else:
+            #     print("删除二维码出错")
         else:
             # cookies = dingding.dd_login_status(uname)
             pass

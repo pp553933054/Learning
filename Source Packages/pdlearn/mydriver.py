@@ -48,6 +48,7 @@ class Mydriver:
             if os.path.exists("./chrome/chromedriver.exe"):  # win
                 self.driver = self.webdriver.Chrome(executable_path="./chrome/chromedriver.exe",
                                                     chrome_options=self.options)
+
             elif os.path.exists("./chromedriver"):  # linux
                 self.driver = self.webdriver.Chrome(executable_path="./chromedriver",
                                                     chrome_options=self.options)
@@ -59,6 +60,7 @@ class Mydriver:
                                                     chrome_options=self.options)
             else:
                 self.driver = self.webdriver.Chrome(chrome_options=self.options)
+
         except Exception:
             print("=" * 120)
             print("Mydriver初始化失败")
@@ -171,6 +173,10 @@ class Mydriver:
         :rtype:
         """
         for cookie in cookies:
+            for k in cookie:
+                if k == 'expiry':
+                    t = cookie[k]
+                    cookie[k] = int(t)  # 时间戳 秒
             self.driver.add_cookie({k: cookie[k] for k in cookie.keys()})
 
     def get_url(self, url):
@@ -195,5 +201,3 @@ class Mydriver:
 
     def quit(self):
         self.driver.quit()
-
-

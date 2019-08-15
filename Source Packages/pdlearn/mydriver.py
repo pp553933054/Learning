@@ -43,7 +43,7 @@ class Mydriver:
             self.options.add_argument('--log-level=3')
 
             self.options.add_argument('--user-agent={}'.format(user_agent.getheaders()))
-            self.options.add_experimental_option('excludeSwitches', ['enable-automation'])  # 绕过js检测
+            self.options.add_experimental_option('excludeSwitches', ['disable-automation'])  # 绕过js检测
             self.webdriver = webdriver
             if os.path.exists("./chrome/chromedriver.exe"):  # win
                 self.driver = self.webdriver.Chrome(executable_path="./chrome/chromedriver.exe",

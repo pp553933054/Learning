@@ -21,7 +21,7 @@ def get_article_links():
         for i in range(len(path_list)):
             links.append(path_list[i]["static_page_url"])
         return links
-    except:
+    except Exception:
         print("=" * 120)
         print("get_article_links获取失败")
         print("=" * 120)
@@ -44,7 +44,7 @@ def get_video_links():
         link = re.findall(pattern, video, re.I)
         link.reverse()
         return link
-    except:
+    except Exception:
         print("=" * 120)
         print("get_video_links获取失败")
         print("=" * 120)

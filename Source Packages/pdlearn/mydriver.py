@@ -1,12 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common import exceptions
-from selenium.webdriver.chrome.options import Options
-from pdlearn import user_agent
-from pdlearn import send_email
 import os
 import time
+
+from selenium import webdriver
+from selenium.common import exceptions
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+from pdlearn import user_agent
 
 '''浏览器头设置，根据不同的请求初始化对象'''
 

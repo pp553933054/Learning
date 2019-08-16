@@ -10,6 +10,7 @@ def get_article_links():
     :return: links数组
     """
     try:
+        # temp="https://www.xuexi.cn/4063dbabf4bad826aeeb5d831ce9624e/data60bd1d03c55149fd0e92da70d074d72b.js"
         article = requests.get(
             "https://www.xuexi.cn/c06bf4acc7eef6ef0a560328938b5771/data9a3668c13f6e303932b5e0e100fc248b.js").content.\
             decode(
@@ -37,6 +38,7 @@ def get_video_links():
     :return: 返回links数组
     """
     try:
+        # temp="https://www.xuexi.cn/4063dbabf4bad826aeeb5d831ce9624e/data60bd1d03c55149fd0e92da70d074d72b.js"
         video = requests.get(
             "https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/datadb086044562a57b441c24f2af1c8e101.js").content.\
             decode("utf8")

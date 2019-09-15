@@ -11,6 +11,11 @@ import os
 import qrcode
 from PIL import Image
 from pyzbar import pyzbar
+from MyQR import myqr
+
+
+def myself_make_qr_code():
+    myqr.run(words='I Love You ', level='H', picture='dongtu.gif', colorized=True,save_name='qrcode.gif', save_dir=os.getcwd())
 
 
 def make_qr_code(content, save_path=None):
@@ -106,13 +111,15 @@ if __name__ == "__main__":
                 "=dingoankubyrfkttorhpou&redirect_uri=https%3A%2F%2Fpc-api.xuexi.cn%2Fopen%2Fapi%2Fsns%2Fcallback"
     print("正在编码：")
     # ==生成带中心图片的二维码
-    make_qr_code_with_icon(code_Data, "phone.jpg", "qrcode.png")  # 内容，center图片，生成二维码图片
-    make_qr_code(code_Data, "qrcode_one.png")
+    # make_qr_code_with_icon(code_Data, "phone.jpg", "qrcode.png")  # 内容，center图片，生成二维码图片
+    # make_qr_code(code_Data, "qrcode_one.png")
     print("图片已保存，名称为：qrcode.png")
-    results = decode_qr_code("qrcode1.png")
+    # results = decode_qr_code("qrcode1.png")
     print("2、正在解码：")
-    if len(results):
-        print("解码结果是：")
-        print(results[0].data.decode("utf-8"))
-    else:
-        print("Can not recognize.")
+    print("======================================")
+    myself_make_qr_code();
+    # if len(results):
+    #     print("解码结果是：")
+    #     print(results[0].data.decode("utf-8"))
+    # else:
+    #     print("Can not recognize.")
